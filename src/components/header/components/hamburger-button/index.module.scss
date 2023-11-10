@@ -1,0 +1,25 @@
+.hamburger-menu {
+	
+	&__menu-button {
+		width: 30px;
+		height: 24px;
+		background: none;
+		display: flex;
+		align-items: center;
+		flex-direction: column;
+		justify-content: space-between;
+		border: none;
+		padding: 2px 0;
+		box-sizing: border-box;
+
+	}
+
+	.menu-button {
+		&__line {
+			background: #aaa;
+			height: 2px;
+			width: 100%;
+		}
+	}
+
+}
