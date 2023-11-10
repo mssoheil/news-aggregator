@@ -9,7 +9,6 @@ export const Header = () => {
 	return (
 		<div className={styles["header"]}>
 			<Menu />
-
 			<Search />
 		</div>
 	);
