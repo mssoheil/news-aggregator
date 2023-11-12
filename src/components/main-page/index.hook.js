@@ -1,25 +1,52 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 const newsApiApiKey = process.env.REACT_APP_NEWSAPI_API_KEY;
 const nytimesApiKey = process.env.REACT_APP_NYTIMES_API_KEY;
 const guardianApiKey = process.env.REACT_APP_GUARDIAN_API_KEY;
 
+const newsApiBaseUrl = "/newsapi/v2/everything";
+const nytimesBaseUrl = "https://api.nytimes.com/svc/search/v2/articlesearch.json";
+const guardianBaseUrl = "https://content.guardianapis.com/search";
+
 export function useFeed() {
+	const [page, setPage] = useState(1);
 	const [articles, setArticles] = useState([]);
 	const [loading, setLoading] = useState(false);
 	const [newsapiHasError, setNewsapiHasError] = useState(true);
 	const [nytimesHasError, setNytimesHasError] = useState(true);
 	const [guardianHasError, setGuardianHasError] = useState(true);
 
+	const hasError = useMemo(
+		() => guardianHasError && nytimesHasError && newsapiHasError,
+		[guardianHasError, nytimesHasError, newsapiHasError]
+	);
+
 	useEffect(() => {
 		handleFetchArticles();
-	}, []);
+	}, [page]);
+
+	function goNextPage() {
+		if (!hasError && !loading) {
+
+			setPage((page) => page + 1);
+		}
+	}
+
+	function goPreviousPage() {
+		if (hasError || loading) {
+			return;
+		}
+
+		if (page > 1) {
+			setPage((page) => page - 1);
+		}
+	}
 
 	async function getNewsApiArticles() {
 		try {
 			setNewsapiHasError(false);
 			const newsapiResponse = await fetch(
-				`/newsapi/v2/everything?apiKey=${newsApiApiKey}&q=keyword&pageSize=10`
+				`${newsApiBaseUrl}?apiKey=${newsApiApiKey}&q=keyword&pageSize=10&page=${page}`
 			);
 			const newsapiArticles = await newsapiResponse.json();
 
@@ -33,9 +60,10 @@ export function useFeed() {
 		try {
 			setNytimesHasError(false);
 			const nytimesResponse = await fetch(
-				`https://api.nytimes.com/svc/search/v2/articlesearch.json?api-key=${nytimesApiKey}&q=election&page=1`
+				`${nytimesBaseUrl}?api-key=${nytimesApiKey}&q=election&page=${page}`
 			);
 			const nytimesArticles = await nytimesResponse.json();
+
 			return nytimesArticles?.response.docs;
 		} catch (error) {
 			setNytimesHasError(true);
@@ -46,9 +74,10 @@ export function useFeed() {
 		try {
 			setGuardianHasError(false);
 			const guardianResponse = await fetch(
-				`https://content.guardianapis.com/search?api-key=${guardianApiKey}&page=1`
+				`${guardianBaseUrl}?api-key=${guardianApiKey}&page=${page}`
 			);
 			const guardianArticles = await guardianResponse.json();
+
 			return guardianArticles?.response.results;
 		} catch (error) {
 			setGuardianHasError(true);
@@ -74,7 +103,6 @@ export function useFeed() {
 			setArticles(aggregatedData);
 			setLoading(false);
 		} catch (error) {
-			console.log("Debug ~ handleFetchArticles ~ error:", error);
 			setLoading(false);
 		}
 	}
@@ -120,9 +148,15 @@ export function useFeed() {
 		].sort((a, b) => (a.publishedAt > b.publishedAt ? 1 : -1));
 	}
 
+
+
 	return {
 		articles,
-		hasError: guardianHasError && nytimesHasError && newsapiHasError,
+		hasError,
 		loading,
+		hasPreviousPage: page > 1 && !loading && !hasError,
+		hasNextPage: !loading && !hasError && articles.length,
+		goNextPage,
+		goPreviousPage,
 	};
 }
