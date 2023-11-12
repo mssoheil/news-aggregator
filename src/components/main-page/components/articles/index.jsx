@@ -4,9 +4,14 @@ import { ArticleItem } from "../article-item";
 // Styles
 import styles from "./index.module.scss";
 
-export const Articles = ({ data }) => {
+export const Articles = ({ data, filterIsOpened }) => {
+
 	return (
-		<div className={styles.articles}>
+		<div
+			className={`${styles.articles} ${
+				filterIsOpened ? styles["articles--filter-visible"] : ""
+			}`}
+		>
 			{data.map((article) => (
 				<ArticleItem
 					article={article}

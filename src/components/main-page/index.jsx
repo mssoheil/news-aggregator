@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 // Components
 import { Header } from "../header";
 import { Articles } from "./components/articles";
@@ -11,43 +11,64 @@ import spinnerIcon from "../../assets/images/tail-spin.svg";
 import styles from "./index.module.scss";
 
 export const MainPage = () => {
-  const {
-    articles,
-    hasError,
-    loading,
-    hasNextPage,
-    hasPreviousPage,
-    goNextPage,
-    goPreviousPage,
-  } = useFeed();
+	const {
+		articles,
+		hasError,
+		loading,
+		hasNextPage,
+		hasPreviousPage,
+		fromDate,
+		toDate,
+		source,
+		keyword,
+		handleFromDateChange,
+		handleKeywordChange,
+		handleToDateChange,
+		handleSourceChange,
+		goNextPage,
+		goPreviousPage,
+	} = useFeed();
 
-  function handleRefreshPage() {
-    window.location.reload(false);
-  }
+	const [isFilterVisible, setIsFilterVisible] = useState(false);
 
-  return (
-    <div className={styles["main-page"]}>
-      <Header />
+	function handleRefreshPage() {
+		window.location.reload(false);
+	}
 
-      {loading ? (
-        <img
-          src={spinnerIcon}
-          alt="spinner"
-          className={styles["main-page__spinner"]}
-        />
-      ) : hasError ? (
-        <h3 className={styles["main-page__error"]}>
-          Something happened, <span onClick={handleRefreshPage}>Refresh</span>
-        </h3>
-      ) : (
-        <Articles data={articles} />
-      )}
-      <Pagination
-        goNext={goNextPage}
-        goPrevious={goPreviousPage}
-        hasNextPage={hasNextPage}
-        hasPreviousPage={hasPreviousPage}
-      />
-    </div>
-  );
+	return (
+		<div className={styles["main-page"]}>
+			<Header
+				toDate={toDate}
+				source={source}
+				fromDate={fromDate}
+				isFilterVisible={isFilterVisible}
+				onToDateChange={handleToDateChange}
+				onSourceChange={handleSourceChange}
+				onFromDateChange={handleFromDateChange}
+				onKeywordChange={handleKeywordChange}
+				setIsFilterVisible={setIsFilterVisible}
+				keyword={keyword}
+			/>
+
+			{loading ? (
+				<img
+					alt="spinner"
+					src={spinnerIcon}
+					className={styles["main-page__spinner"]}
+				/>
+			) : hasError ? (
+				<h3 className={styles["main-page__error"]}>
+					Something happened, <span onClick={handleRefreshPage}>Refresh</span>
+				</h3>
+			) : (
+				<Articles data={articles} filterIsOpened={isFilterVisible} />
+			)}
+			<Pagination
+				goNext={goNextPage}
+				hasNextPage={hasNextPage}
+				goPrevious={goPreviousPage}
+				hasPreviousPage={hasPreviousPage}
+			/>
+		</div>
+	);
 };

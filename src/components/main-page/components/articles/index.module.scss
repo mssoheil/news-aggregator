@@ -1,5 +1,12 @@
 .articles {
 	padding: 10px;
-	height: 70vh;
+	height: calc(100vh - 202px);
 	overflow-y: auto;
+	box-sizing: border-box;
+	transition: height 0.3s;
+	
+	&--filter-visible {
+		transition: height 0.3s;
+		height: calc(100vh - 382px);
+	}
 }

@@ -1,5 +1,49 @@
 .header {
-	max-height: 20vh;
 	background: #fff;
-	padding-bottom: 14px;
+
+	&__filter-section {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		padding: 15px 10px 15px;
+	}
+
+	&__filter-content {
+		width: 100%;
+		height: 0;
+		overflow: hidden;
+		transition: height 0.3s;
+		padding: 0 50px 0 10px;
+		
+		&--visible {
+			padding: 0 50px 10px 10px;
+			height: 180px;
+			transition: height 0.3s;
+		}
+	}
+
+	.filter-section {
+		&__filter-icon {
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			&,
+			svg {
+				width: 40px;
+				height: 40px;
+			}
+			color: #3199fa;
+			&,
+			&:active,
+			&:hover {
+				background: none;
+				border: none;
+				outline: none;
+			}
+
+			&--visible {
+				color: #79d4f3;
+			}
+		}
+	}
 }
