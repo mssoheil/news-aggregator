@@ -1,0 +1,53 @@
+.filter-section {
+  padding: 0 50px 0 10px;
+
+  @media screen and (min-width: 640px) {
+    padding: 0 0 10px 10px !important;
+  }
+
+  &__inputs-wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+
+    @media screen and (min-width: 640px) {
+      flex-direction: row;
+      gap: 10px;
+      max-width: 610px;
+      height: 60px !important;
+      transition: height 0.3s;
+
+      & > div {
+        flex: 1;
+      }
+    }
+  }
+
+  &__button-wrapper {
+    width: 100%;
+    @media screen and (min-width: 640px) {
+      width: 184px;
+    }
+  }
+
+  .button-wrapper {
+    &__button {
+      width: 100%;
+      border: none;
+      border-radius: 10px;
+      background: #0243e7;
+      color: #fff;
+      height: 40px;
+      &:disabled {
+        background: #ccc;
+      }
+    }
+  }
+
+  .button {
+    &__spinner {
+      width: 20px;
+      height: 20px;
+    }
+  }
+}

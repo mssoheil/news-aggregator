@@ -53,7 +53,7 @@ export function useFeed() {
 			setNewsapiHasError(false);
 			const newsapiQuery = createQuery({
 				apiKey: newsApiApiKey,
-				q: keyword,
+				q: keyword || "keyword",
 				pageSize: 10,
 				page,
 				from: fromDate,
@@ -175,20 +175,26 @@ export function useFeed() {
 		].sort((a, b) => (a.publishedAt > b.publishedAt ? 1 : -1));
 	}
 
-	function handleFromDateChange(event) {
-		setFromDate(event.target.value);
+	function handleFromDateChange(fromDate) {
+		setFromDate(fromDate);
 	}
 
-	function handleToDateChange(event) {
-		setToDate(event.target.value);
+	function handleToDateChange(toDate) {
+		setToDate(toDate);
 	}
 
-	function handleSourceChange(event) {
-		setSource(event.target.value);
+	function handleSourceChange(source) {
+		setSource(source);
 	}
 
 	function handleKeywordChange(event) {
 		setKeyword(event.target.value);
+	}
+
+	function handleSubmit(fromDate, toDate, source) {
+		handleFromDateChange(fromDate);
+		handleToDateChange(toDate);
+		handleSourceChange(source);
 	}
 
 	return {
@@ -203,9 +209,7 @@ export function useFeed() {
 		keyword,
 		goNextPage,
 		goPreviousPage,
-		handleToDateChange,
-		handleSourceChange,
 		handleKeywordChange,
-		handleFromDateChange,
+		handleSubmit
 	};
 }

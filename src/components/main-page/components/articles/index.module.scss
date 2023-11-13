@@ -1,16 +1,17 @@
 .articles {
 	padding: 10px;
-	height: calc(100vh - 202px);
+	padding-top: 15px;
+	height: calc(100vh - 242px);
 	overflow-y: auto;
 	box-sizing: border-box;
 	transition: height 0.3s;
 
 	@media screen and (min-width: 500px) {
-		height: calc(100vh - 262px) !important;
+		height: calc(100vh - 302px) !important;
 	}
 	
 	&--filter-visible {
 		transition: height 0.3s;
-		height: calc(100vh - 382px);
+		height: calc(100vh - 422px);
 	}
 }
