@@ -1,18 +1,42 @@
-import React from "react";
+import React, { useMemo, useState } from "react";
+// Components
+import { SearchIcon } from "../../../icons";
 // Styles
 import styles from "./index.module.scss";
-// Assets
-import searchIcon from "../../../../assets/images/search-icon.svg";
 
-export const Search = ({ value, onChange }) => {
+export const Search = ({ onChange, currentValue, loading }) => {
+	const [value, setValue] = useState("");
+
+	function handleChange(event) {
+		setValue(event.target.value);
+	}
+
+	const buttonIsDisabled = useMemo(
+		() => (!value && !currentValue) || loading,
+		[value, currentValue, loading]
+	);
+
+	function handleSubmit() {
+		if (!buttonIsDisabled) {
+			onChange(value);
+		}
+	}
+
 	return (
 		<div className={styles.search}>
 			<div className={styles["search__wrapper"]}>
-				<img alt="magnifying glass" src={searchIcon} width={22} height={22} />
+				<button
+					className={`${styles["search__button"]} ${
+						!buttonIsDisabled ? styles["search__button--active"] : ""
+					}`}
+					onClick={handleSubmit}
+				>
+					<SearchIcon color={!buttonIsDisabled ? "#fff" : "#ccc"} />
+				</button>
 				<input
 					className={styles["wrapper__input"]}
 					value={value}
-					onChange={onChange}
+					onChange={handleChange}
 				/>
 			</div>
 		</div>

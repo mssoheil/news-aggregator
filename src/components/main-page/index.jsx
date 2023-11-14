@@ -48,6 +48,7 @@ export const MainPage = () => {
 				onKeywordChange={handleKeywordChange}
 				setIsFilterVisible={setIsFilterVisible}
 				keyword={keyword}
+				loading={loading}
 			/>
 
 			{loading ? (

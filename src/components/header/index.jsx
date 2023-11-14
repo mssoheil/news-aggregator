@@ -18,6 +18,7 @@ export const Header = ({
 	onKeywordChange,
 	onToDateChange,
 	onSourceChange,
+	loading,
 }) => {
 	function handleToggleVisible() {
 		setIsFilterVisible((isFilterVisible) => !isFilterVisible);
@@ -27,7 +28,11 @@ export const Header = ({
 		<div className={styles.header}>
 			<Menu />
 			<div className={styles["header__filter-section"]}>
-				<Search value={keyword} onChange={onKeywordChange} />
+				<Search
+					currentValue={keyword}
+					onChange={onKeywordChange}
+					loading={loading}
+				/>
 				<button
 					onClick={handleToggleVisible}
 					className={`${styles["filter-section__filter-icon"]} ${

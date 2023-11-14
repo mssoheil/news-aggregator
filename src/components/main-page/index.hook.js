@@ -187,8 +187,8 @@ export function useFeed() {
 		setSource(event.target.value);
 	}
 
-	function handleKeywordChange(event) {
-		setKeyword(event.target.value);
+	function handleKeywordChange(value) {
+		setKeyword(value);
 	}
 
 	return {
