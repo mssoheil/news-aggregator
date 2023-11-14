@@ -6,7 +6,7 @@ const newsApiApiKey = process.env.REACT_APP_NEWSAPI_API_KEY;
 const nytimesApiKey = process.env.REACT_APP_NYTIMES_API_KEY;
 const guardianApiKey = process.env.REACT_APP_GUARDIAN_API_KEY;
 
-const newsApiBaseUrl = "/newsapi/v2/everything";
+const newsApiBaseUrl = "/newsapi/v2/top-headlines";
 const nytimesBaseUrl =
 	"https://api.nytimes.com/svc/search/v2/articlesearch.json";
 const guardianBaseUrl = "https://content.guardianapis.com/search";
@@ -22,6 +22,7 @@ export function useFeed() {
 	const [toDate, setToDate] = useState("");
 	const [source, setSource] = useState("");
 	const [keyword, setKeyword] = useState("");
+	const [category, setCategory] = useState(null);
 
 	const hasError = useMemo(
 		() => guardianHasError && nytimesHasError && newsapiHasError,
@@ -30,7 +31,7 @@ export function useFeed() {
 
 	useEffect(() => {
 		handleFetchArticles();
-	}, [page, fromDate, toDate, source, keyword]);
+	}, [page, fromDate, toDate, source, keyword, category]);
 
 	function goNextPage() {
 		if (!hasError && !loading) {
@@ -59,6 +60,7 @@ export function useFeed() {
 				from: fromDate,
 				to: toDate,
 				source,
+				category,
 			});
 			const newsapiResponse = await fetch(`${newsApiBaseUrl}?${newsapiQuery}`);
 			const newsapiArticles = await newsapiResponse.json();
@@ -72,13 +74,20 @@ export function useFeed() {
 	async function getNyTimesArticles() {
 		try {
 			setNytimesHasError(false);
+			const sourceQuery = source && `source:(${source})`;
+			const newsDeskQuery = category && `news_desk:(${category})`;
+			const filterQuery =
+				sourceQuery && newsDeskQuery
+					? `${sourceQuery} AND ${newsDeskQuery}`
+					: sourceQuery || newsDeskQuery;
+
 			const nytimesQuery = createQuery({
 				"api-key": nytimesApiKey,
 				q: keyword,
 				page,
 				begin_date: fromDate,
 				end_date: toDate,
-				fq: source && `source:(${source})`,
+				fq: filterQuery,
 			});
 			const nytimesResponse = await fetch(`${nytimesBaseUrl}?${nytimesQuery}`);
 			const nytimesArticles = await nytimesResponse.json();
@@ -99,6 +108,7 @@ export function useFeed() {
 				"from-date": fromDate,
 				"to-date": toDate,
 				q: keyword,
+				section: category,
 			});
 			const guardianResponse = await fetch(
 				`${guardianBaseUrl}?${guardianQuery}`
@@ -197,6 +207,10 @@ export function useFeed() {
 		handleSourceChange(source);
 	}
 
+	function onCategorySelect(value) {
+		setCategory(value);
+	}
+
 	return {
 		articles,
 		hasError,
@@ -210,6 +224,7 @@ export function useFeed() {
 		goNextPage,
 		goPreviousPage,
 		handleKeywordChange,
-		handleSubmit
+		handleSubmit,
+		onCategorySelect,
 	};
 }

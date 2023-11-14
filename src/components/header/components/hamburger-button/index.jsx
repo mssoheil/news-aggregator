@@ -4,7 +4,7 @@ import { MenuContent } from "../menu-content";
 // Styles
 import styles from "./index.module.scss";
 
-export const HamburgerButton = (props) => {
+export const HamburgerButton = ({ onCategorySelect }) => {
 	const [isOpened, setIsOpened] = useState(false);
 
 	function handleOpenMenu() {
@@ -25,7 +25,11 @@ export const HamburgerButton = (props) => {
 				<span className={styles["menu-button__line"]} />
 				<span className={styles["menu-button__line"]} />
 			</button>
-			<MenuContent isOpened={isOpened} onClose={handleCloseMenu} />
+			<MenuContent
+				isOpened={isOpened}
+				onClose={handleCloseMenu}
+				onCategorySelect={onCategorySelect}
+			/>
 		</div>
 	);
 };

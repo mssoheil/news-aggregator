@@ -7,6 +7,7 @@
 	transform: translateX(100vw);
 	transition: transform 0.2s;
 	background: #fff;
+	z-index: 3;
 
 	&__content-wrapper {
 		width: 100%;
@@ -33,6 +34,11 @@
 		&__heading {
 			margin-top: 40px;
 			border-bottom: 1px solid #aaa;
+			padding-bottom: 10px;
+		}
+
+		&__item {
+			margin-top: 20px;
 			padding-bottom: 10px;
 		}
 	}
