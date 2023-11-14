@@ -226,5 +226,6 @@ export function useFeed() {
 		handleKeywordChange,
 		handleSubmit,
 		onCategorySelect,
+		category,
 	};
 }

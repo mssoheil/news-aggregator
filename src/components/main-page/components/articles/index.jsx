@@ -1,18 +1,20 @@
-import React from "react";
+import React, { useContext } from "react";
 // Components
 import { ArticleItem } from "../article-item";
 // Styles
 import styles from "./index.module.scss";
+import { Store } from "../..";
 
-export const Articles = ({ data, filterIsOpened }) => {
+export const Articles = () => {
+	const { articles, isFilterVisible } = useContext(Store);
 
 	return (
 		<div
 			className={`${styles.articles} ${
-				filterIsOpened ? styles["articles--filter-visible"] : ""
+				isFilterVisible ? styles["articles--filter-visible"] : ""
 			}`}
 		>
-			{data.map((article) => (
+			{articles.map((article) => (
 				<ArticleItem
 					article={article}
 					key={`${article.title}_${article.url}`}

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 // Components
 import { Menu } from "./components/menu";
 import { Search } from "./components/search";
@@ -6,28 +6,21 @@ import { FilterIcon } from "../icons";
 import { FilterSection } from "./components/filter-section";
 // Styles
 import styles from "./index.module.scss";
+import { Store } from "../main-page";
 
-export const Header = ({
-	isFilterVisible,
-	setIsFilterVisible,
-	keyword,
-	onSubmit,
-	loading,
-	onKeywordChange,
-}) => {
+export const Header = () => {
+	const { onCategorySelect, isFilterVisible, setIsFilterVisible } =
+		useContext(Store);
+
 	function handleToggleVisible() {
 		setIsFilterVisible((isFilterVisible) => !isFilterVisible);
 	}
 
 	return (
 		<div className={styles.header}>
-			<Menu />
+			<Menu onCategorySelect={onCategorySelect} />
 			<div className={styles["header__filter-section"]}>
-				<Search
-					currentValue={keyword}
-					onChange={onKeywordChange}
-					loading={loading}
-				/>
+				<Search />
 				<button
 					onClick={handleToggleVisible}
 					className={`${styles["filter-section__filter-icon"]} ${
@@ -44,7 +37,7 @@ export const Header = ({
 					isFilterVisible ? styles["header__filter-content--visible"] : ""
 				}`}
 			>
-				<FilterSection onSubmit={onSubmit} loading={loading} />
+				<FilterSection />
 			</div>
 		</div>
 	);

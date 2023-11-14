@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { createContext, useState } from "react";
 // Components
 import { Header } from "../header";
 import { Articles } from "./components/articles";
@@ -9,6 +9,8 @@ import { useFeed } from "./index.hook";
 import spinnerIcon from "../../assets/images/tail-spin.svg";
 // Styles
 import styles from "./index.module.scss";
+
+export const Store = createContext();
 
 export const MainPage = () => {
 	const {
@@ -22,44 +24,56 @@ export const MainPage = () => {
 		handleKeywordChange,
 		goNextPage,
 		goPreviousPage,
+		onCategorySelect,
+		category,
 	} = useFeed();
 
 	const [isFilterVisible, setIsFilterVisible] = useState(false);
+	const [isCategoryMenuOpened, setIsCategoryMenuOpened] = useState(false);
 
 	function handleRefreshPage() {
 		window.location.reload(false);
 	}
 
 	return (
-		<div className={styles["main-page"]}>
-			<Header
-				isFilterVisible={isFilterVisible}
-				onKeywordChange={handleKeywordChange}
-				setIsFilterVisible={setIsFilterVisible}
-				keyword={keyword}
-				onSubmit={handleSubmit}
-				loading={loading}
-			/>
+		<Store.Provider
+			value={{
+				articles,
+				hasError,
+				loading,
+				hasNextPage,
+				hasPreviousPage,
+				keyword,
+				handleSubmit,
+				handleKeywordChange,
+				goNextPage,
+				goPreviousPage,
+				onCategorySelect,
+				isFilterVisible,
+				setIsFilterVisible,
+				isCategoryMenuOpened,
+				setIsCategoryMenuOpened,
+				category,
+			}}
+		>
+			<div className={styles["main-page"]}>
+				<Header />
 
-			{loading ? (
-				<img
-					alt="spinner"
-					src={spinnerIcon}
-					className={styles["main-page__spinner"]}
-				/>
-			) : hasError ? (
-				<h3 className={styles["main-page__error"]}>
-					Something happened, <span onClick={handleRefreshPage}>Refresh</span>
-				</h3>
-			) : (
-				<Articles data={articles} filterIsOpened={isFilterVisible} />
-			)}
-			<Pagination
-				goNext={goNextPage}
-				hasNextPage={hasNextPage}
-				goPrevious={goPreviousPage}
-				hasPreviousPage={hasPreviousPage}
-			/>
-		</div>
+				{loading ? (
+					<img
+						alt="spinner"
+						src={spinnerIcon}
+						className={styles["main-page__spinner"]}
+					/>
+				) : hasError ? (
+					<h3 className={styles["main-page__error"]}>
+						Something happened, <span onClick={handleRefreshPage}>Refresh</span>
+					</h3>
+				) : (
+					<Articles />
+				)}
+				<Pagination />
+			</div>
+		</Store.Provider>
 	);
 };

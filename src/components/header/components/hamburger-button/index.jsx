@@ -1,18 +1,19 @@
-import { useState } from "react";
+import { useContext } from "react";
 // Components
 import { MenuContent } from "../menu-content";
 // Styles
 import styles from "./index.module.scss";
+import { Store } from "../../../main-page";
 
-export const HamburgerButton = ({ onCategorySelect }) => {
-	const [isOpened, setIsOpened] = useState(false);
+export const HamburgerButton = () => {
+	const { setIsCategoryMenuOpened } = useContext(Store);
 
 	function handleOpenMenu() {
-		setIsOpened(true);
+		setIsCategoryMenuOpened(true);
 	}
 
 	function handleCloseMenu() {
-		setIsOpened(false);
+		setIsCategoryMenuOpened(false);
 	}
 
 	return (
@@ -25,11 +26,7 @@ export const HamburgerButton = ({ onCategorySelect }) => {
 				<span className={styles["menu-button__line"]} />
 				<span className={styles["menu-button__line"]} />
 			</button>
-			<MenuContent
-				isOpened={isOpened}
-				onClose={handleCloseMenu}
-				onCategorySelect={onCategorySelect}
-			/>
+			<MenuContent onClose={handleCloseMenu} />
 		</div>
 	);
 };

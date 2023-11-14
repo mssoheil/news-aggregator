@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 // Styles
 import styles from "./index.module.scss";
 // Assets
 import closeIcon from "../../../../assets/images/close-icon.svg";
+import { Store } from "../../../main-page";
 
 const categories = [
 	{
@@ -26,11 +27,24 @@ const categories = [
 		key: "technology",
 	},
 ];
-export const MenuContent = ({ isOpened, onClose, onCategorySelect }) => {
+
+export const MenuContent = ({ onClose }) => {
+	const {
+		onCategorySelect,
+		setIsCategoryMenuOpened,
+		category: selectedCategory,
+		isCategoryMenuOpened,
+	} = useContext(Store);
+
+	function handleCategorySelect(key) {
+		onCategorySelect(key);
+		setIsCategoryMenuOpened(false);
+	}
+
 	return (
 		<div
 			className={`${styles["menu-content"]} ${
-				isOpened ? styles["menu-content__opened"] : ""
+				isCategoryMenuOpened ? styles["menu-content__opened"] : ""
 			}`}
 		>
 			<div className={styles["menu-content__content-wrapper"]}>
@@ -47,9 +61,13 @@ export const MenuContent = ({ isOpened, onClose, onCategorySelect }) => {
 
 				{categories.map((category) => (
 					<h4
-						className={styles["content-wrapper__item"]}
+						className={`${styles["content-wrapper__item"]} ${
+							category.key === selectedCategory
+								? styles["content-wrapper__item--active"]
+								: ""
+						}`}
 						key={category.key}
-						onClick={() => onCategorySelect(category.key)}
+						onClick={() => handleCategorySelect(category.key)}
 					>
 						{category.label}
 					</h4>

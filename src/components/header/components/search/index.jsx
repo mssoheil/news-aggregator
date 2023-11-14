@@ -1,10 +1,13 @@
-import React, { useMemo, useState } from "react";
+import React, { useContext, useMemo, useState } from "react";
 // Components
 import { SearchIcon } from "../../../icons";
 // Styles
 import styles from "./index.module.scss";
+import { Store } from "../../../main-page";
 
-export const Search = ({ onChange, currentValue, loading }) => {
+export const Search = () => {
+	const { handleKeywordChange, keyword, loading } = useContext(Store);
+
 	const [value, setValue] = useState("");
 
 	function handleChange(event) {
@@ -12,13 +15,13 @@ export const Search = ({ onChange, currentValue, loading }) => {
 	}
 
 	const buttonIsDisabled = useMemo(
-		() => (!value && !currentValue) || loading,
-		[value, currentValue, loading]
+		() => (!value && !keyword) || loading,
+		[value, keyword, loading]
 	);
 
 	function handleSubmit() {
 		if (!buttonIsDisabled) {
-			onChange(value);
+			handleKeywordChange(value);
 		}
 	}
 

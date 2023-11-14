@@ -38,8 +38,16 @@
 		}
 
 		&__item {
+			font-size: 16px;
+			font-weight: 400;
 			margin-top: 20px;
 			padding-bottom: 10px;
+			
+			&--active {
+				font-size: 17px;
+				font-weight: bold;
+				color: #9b92e9;
+			}
 		}
 	}
 }
