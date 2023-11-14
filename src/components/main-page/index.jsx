@@ -17,14 +17,9 @@ export const MainPage = () => {
 		loading,
 		hasNextPage,
 		hasPreviousPage,
-		fromDate,
-		toDate,
-		source,
 		keyword,
-		handleFromDateChange,
+		handleSubmit,
 		handleKeywordChange,
-		handleToDateChange,
-		handleSourceChange,
 		goNextPage,
 		goPreviousPage,
 	} = useFeed();
@@ -38,16 +33,11 @@ export const MainPage = () => {
 	return (
 		<div className={styles["main-page"]}>
 			<Header
-				toDate={toDate}
-				source={source}
-				fromDate={fromDate}
 				isFilterVisible={isFilterVisible}
-				onToDateChange={handleToDateChange}
-				onSourceChange={handleSourceChange}
-				onFromDateChange={handleFromDateChange}
 				onKeywordChange={handleKeywordChange}
 				setIsFilterVisible={setIsFilterVisible}
 				keyword={keyword}
+				onSubmit={handleSubmit}
 				loading={loading}
 			/>
 
