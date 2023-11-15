@@ -1,0 +1,17 @@
+.filter-inputs {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+
+  @media screen and (min-width: 640px) {
+    flex-direction: row;
+    gap: 10px;
+    max-width: 610px;
+    height: 60px !important;
+    transition: height 0.3s;
+
+    & > div {
+      flex: 1;
+    }
+  }
+}
