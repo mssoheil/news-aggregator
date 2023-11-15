@@ -1,78 +1,34 @@
-import React, { useContext } from "react";
+import React from "react";
 // Styles
 import styles from "./index.module.scss";
-// Assets
-import closeIcon from "../../../../assets/images/close-icon.svg";
-import { Store } from "../../../main-page";
+// Constants
+import { categories } from "../../../../constants/categories.ts";
 
-const categories = [
-	{
-		label: "Business",
-		key: "business",
-	},
-	{
-		label: "Health",
-		key: "health",
-	},
-	{
-		label: "Science",
-		key: "science",
-	},
-	{
-		label: "Sports",
-		key: "sports",
-	},
-	{
-		label: "Technology",
-		key: "technology",
-	},
-];
-
-export const MenuContent = ({ onClose }) => {
-	const {
-		onCategorySelect,
-		setIsCategoryMenuOpened,
-		category: selectedCategory,
-		isCategoryMenuOpened,
-	} = useContext(Store);
-
+export const MenuContent = ({
+	onClose,
+	onCategorySelect,
+	selectedCategory,
+}) => {
 	function handleCategorySelect(key) {
 		onCategorySelect(key);
-		setIsCategoryMenuOpened(false);
+		onClose();
 	}
 
 	return (
-		<div
-			className={`${styles["menu-content"]} ${
-				isCategoryMenuOpened ? styles["menu-content__opened"] : ""
-			}`}
-		>
-			<div className={styles["menu-content__content-wrapper"]}>
-				<img
-					alt="close"
-					src={closeIcon}
-					onClick={onClose}
-					className={styles["content-wrapper__close-button"]}
-					width={32}
-					height={32}
-				/>
+		<div className={styles["menu-content"]}>
+			<h3 className={styles["menu-content__heading"]}>Categories</h3>
 
-				<h3 className={styles["content-wrapper__heading"]}>Categories</h3>
-
-				{categories.map((category) => (
-					<h4
-						className={`${styles["content-wrapper__item"]} ${
-							category.key === selectedCategory
-								? styles["content-wrapper__item--active"]
-								: ""
-						}`}
-						key={category.key}
-						onClick={() => handleCategorySelect(category.key)}
-					>
-						{category.label}
-					</h4>
-				))}
-			</div>
+			{categories.map(({ key, label }) => (
+				<h4
+					className={`${styles["menu-content__item"]} ${
+						key === selectedCategory ? styles["menu-content__item--active"] : ""
+					}`}
+					key={key}
+					onClick={() => handleCategorySelect(key)}
+				>
+					{label}
+				</h4>
+			))}
 		</div>
 	);
 };

@@ -21,13 +21,37 @@ export function useFeed() {
 	const [fromDate, setFromDate] = useState("");
 	const [toDate, setToDate] = useState("");
 	const [source, setSource] = useState("");
+	const [author, setAuthor] = useState("");
 	const [keyword, setKeyword] = useState("");
 	const [category, setCategory] = useState(null);
+
+	useEffect(() => {
+		const preferredCategory = localStorage.getItem("preferredCategory");
+		const preferredSource = localStorage.getItem("preferredSource");
+		const preferredAuthor = localStorage.getItem("preferredAuthor");
+
+		if (preferredCategory) {
+			setCategory(preferredCategory);
+		}
+
+		if (preferredSource) {
+			setSource(preferredSource);
+		}
+
+		if (preferredAuthor) {
+			setAuthor(preferredAuthor);
+		}
+	}, []);
 
 	const hasError = useMemo(
 		() => guardianHasError && nytimesHasError && newsapiHasError,
 		[guardianHasError, nytimesHasError, newsapiHasError]
 	);
+
+	useEffect(() => {
+		const currentPreferredCategory = localStorage.getItem("preferredCategory");
+		setCategory(currentPreferredCategory);
+	}, []);
 
 	useEffect(() => {
 		handleFetchArticles();
@@ -61,6 +85,7 @@ export function useFeed() {
 				to: toDate,
 				source,
 				category,
+				author,
 			});
 			const newsapiResponse = await fetch(`${newsApiBaseUrl}?${newsapiQuery}`);
 			const newsapiArticles = await newsapiResponse.json();
@@ -88,6 +113,7 @@ export function useFeed() {
 				begin_date: fromDate,
 				end_date: toDate,
 				fq: filterQuery,
+				byline: author,
 			});
 			const nytimesResponse = await fetch(`${nytimesBaseUrl}?${nytimesQuery}`);
 			const nytimesArticles = await nytimesResponse.json();
@@ -109,6 +135,8 @@ export function useFeed() {
 				"to-date": toDate,
 				q: keyword,
 				section: category,
+				author,
+				"show-references": "author",
 			});
 			const guardianResponse = await fetch(
 				`${guardianBaseUrl}?${guardianQuery}`

@@ -1,0 +1,68 @@
+.preference-content {
+	padding-top: 20px;
+
+	&__categories {
+		@media screen and (min-width: 640px) {
+			display: flex;
+			gap: 20px;
+			h4 {
+				margin-top: 0;
+			}
+		}
+	}
+
+	&__title {
+		margin-top: 10px;
+		padding-bottom: 10px;
+		display: flex;
+		align-items: center;
+		gap: 5px;
+	}
+
+	&__heading {
+		margin-top: 20px;
+		border-bottom: 1px solid #aaa;
+		padding-bottom: 10px;
+		@media screen and (min-width: 640px) {
+			display: inline-block;
+			width: auto;
+		}
+	}
+
+	&__input-section {
+		margin-top: 20px;
+		@media screen and (min-width: 640px) {
+			margin-top: 40px;
+			display: flex;
+			gap: 20px;
+			h3 {
+				display: none;
+			}
+		}
+	}
+
+	&__item {
+		font-size: 16px;
+		font-weight: 400;
+		margin-top: 20px;
+		margin-bottom: 0;
+		cursor: pointer;
+
+		&--active {
+			font-size: 17px;
+			font-weight: bold;
+			color: #9b92e9;
+		}
+	}
+
+	&__button {
+		width: 184px;
+		border: none;
+		margin-top: 20px;
+		border-radius: 10px;
+		background: #0243e7;
+		color: #fff;
+		height: 40px;
+		cursor: pointer;
+	}
+}

@@ -3,6 +3,7 @@ import React, { useContext } from "react";
 import styles from "./index.module.scss";
 // Components
 import { ChevronLeft, ChevronRight } from "../../../icons";
+// Store
 import { Store } from "../..";
 
 export const Pagination = () => {

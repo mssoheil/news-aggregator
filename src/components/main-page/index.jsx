@@ -30,6 +30,7 @@ export const MainPage = () => {
 
 	const [isFilterVisible, setIsFilterVisible] = useState(false);
 	const [isCategoryMenuOpened, setIsCategoryMenuOpened] = useState(false);
+	const [isPreferenceMenuOpened, setIsPreferenceMenuOpened] = useState(false);
 
 	function handleRefreshPage() {
 		window.location.reload(false);
@@ -54,9 +55,15 @@ export const MainPage = () => {
 				isCategoryMenuOpened,
 				setIsCategoryMenuOpened,
 				category,
+				isPreferenceMenuOpened,
+				setIsPreferenceMenuOpened,
 			}}
 		>
-			<div className={styles["main-page"]}>
+			<div
+				className={`${styles["main-page"]} ${
+					isPreferenceMenuOpened ? styles["main-page--none-interactive"] : ""
+				}`}
+			>
 				<Header />
 
 				{loading ? (
