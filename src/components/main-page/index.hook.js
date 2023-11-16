@@ -255,5 +255,7 @@ export function useFeed() {
 		handleSubmit,
 		onCategorySelect,
 		category,
+		setAuthor,
+		setSource,
 	};
 }

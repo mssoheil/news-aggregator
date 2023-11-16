@@ -1,4 +1,4 @@
-.hamburger-menu {
+.preference-content {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -13,5 +13,9 @@
     justify-content: space-between;
     border: none;
     box-sizing: border-box;
+    cursor: pointer;
+    &--disabled {
+      pointer-events: none;
+    }
   }
 }

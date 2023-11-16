@@ -26,6 +26,8 @@ export const MainPage = () => {
 		goPreviousPage,
 		onCategorySelect,
 		category,
+		setAuthor,
+		setSource,
 	} = useFeed();
 
 	const [isFilterVisible, setIsFilterVisible] = useState(false);
@@ -57,6 +59,8 @@ export const MainPage = () => {
 				category,
 				isPreferenceMenuOpened,
 				setIsPreferenceMenuOpened,
+				setAuthor,
+				setSource,
 			}}
 		>
 			<div

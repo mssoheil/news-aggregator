@@ -13,10 +13,10 @@ export const Pagination = () => {
 	return (
 		<div className={styles.pagination}>
 			<button onClick={goPreviousPage}>
-				<ChevronLeft color={hasPreviousPage ? "#000" : "#aaa"} />
+				<ChevronLeft color={hasPreviousPage ? "#9b92e9" : "#eee"} />
 			</button>
 			<button onClick={goNextPage}>
-				<ChevronRight color={hasNextPage ? "#000" : "#aaa"} />
+				<ChevronRight color={hasNextPage ? "#9b92e9" : "#eee"} />
 			</button>
 		</div>
 	);

@@ -1,8 +1,9 @@
 .filter-section {
-  padding: 0 50px 0 10px;
+
+  background: #fff;
 
   @media screen and (min-width: 640px) {
-    padding: 0 0 10px 10px !important;
+    padding: 0 0 10px 0px !important;
   }
 
   &__inputs-wrapper {
@@ -35,7 +36,7 @@
       width: 100%;
       border: none;
       border-radius: 10px;
-      background: #0243e7;
+      background: #9b92e9;
       color: #fff;
       height: 40px;
       &:disabled {

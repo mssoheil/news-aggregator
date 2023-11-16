@@ -1,15 +1,23 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 // Components
 import { Input } from "../../../input/index.jsx";
+import { Button } from "../../../button/index.jsx";
+import { GearIcon } from "../../../icons/index.js";
 // Styles
 import styles from "./index.module.scss";
 // Constants
 import { categories } from "../../../../constants/categories.ts";
-// Assets
-import gearIcon from "../../../../assets/images/gear-icon.svg";
+// Store
+import { Store } from "../../../main-page/index.jsx";
 
-export const PreferenceContent = () => {
-	const [selectedCategory, setSelectedCategory] = useState("");
+export const PreferenceContent = ({ onClose }) => {
+	const {
+		onCategorySelect: setSelectedCategory,
+		setSource: setSelectedSource,
+		setAuthor: setSelectedAuthor,
+	} = useContext(Store);
+
+	const [category, setCategory] = useState("");
 	const [source, setSource] = useState("");
 	const [author, setAuthor] = useState("");
 
@@ -19,7 +27,7 @@ export const PreferenceContent = () => {
 		const preferredAuthor = localStorage.getItem("preferredAuthor");
 
 		if (preferredCategory) {
-			setSelectedCategory(preferredCategory);
+			setCategory(preferredCategory);
 		}
 
 		if (preferredSource) {
@@ -33,11 +41,12 @@ export const PreferenceContent = () => {
 
 	function handleCategorySelect(key) {
 		const currentPreferredCategory = localStorage.getItem("preferredCategory");
+
 		if (currentPreferredCategory === key) {
 			localStorage.removeItem("preferredCategory");
-			setSelectedCategory("");
+			setCategory("");
 		} else {
-			setSelectedCategory(key);
+			setCategory(key);
 			localStorage.setItem("preferredCategory", key);
 		}
 	}
@@ -57,13 +66,16 @@ export const PreferenceContent = () => {
 	}
 
 	function handleRefresh() {
-		window.location.reload();
+		setSelectedCategory(category);
+		setSelectedSource(source);
+		setSelectedAuthor(author);
+		onClose();
 	}
 
 	return (
 		<div className={styles["preference-content"]}>
 			<h2 className={styles["preference-content__title"]}>
-				<img src={gearIcon} alt="gear" width={30} height={30} />
+				<GearIcon color="#aaa" />
 				Preference
 			</h2>
 			<h3 className={styles["preference-content__heading"]}>Category</h3>
@@ -72,9 +84,7 @@ export const PreferenceContent = () => {
 				{categories.map(({ key, label }) => (
 					<h4
 						className={`${styles["preference-content__item"]} ${
-							key === selectedCategory
-								? styles["preference-content__item--active"]
-								: ""
+							key === category ? styles["preference-content__item--active"] : ""
 						}`}
 						key={key}
 						onClick={() => handleCategorySelect(key)}
@@ -100,12 +110,12 @@ export const PreferenceContent = () => {
 					</Input>
 				</div>
 			</div>
-			<button
-				className={styles["preference-content__button"]}
+			<Button
 				onClick={handleRefresh}
+				className={styles["preference-content__button"]}
 			>
 				Get Articles
-			</button>
+			</Button>
 		</div>
 	);
 };
