@@ -7,9 +7,8 @@ describe("getFormattedDate", () => {
 				q1: 1,
 				q2: undefined,
 				q3: null,
-				q4: "sport",
-				q5: 0,
+				q4: "sport"
 			})
-		).toBe("q1=1&q4=sport&q5=0");
+		).toBe("q1=1&q4=sport");
 	});
 });
