@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 // Utilities
-import { getFormattedDate } from "@root/utils/data.util";
+import { getFormattedDate } from "@root/utils/date.util";
 // Styles
 import styles from "./index.module.scss";
 // Assets
