@@ -12,7 +12,7 @@ For filtering and pagination pagination and filter query parameters have been us
 
 The application supports filtering with keyword, published date and source
 
-The use can set preference for favorite category, source and author
+The user can set preference for favorite category, source and author
 
 The changing are not live and won't call by just changing the input field
 
