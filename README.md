@@ -45,3 +45,11 @@ Running:
 ```bash
 docker run -p 3000:3000 news-aggregator
 ```
+
+or adding volume to it to reflect the changes
+
+```bash
+docker run -p 3000:3000 -v ABSOLUTE_PATH_OF_PROJECT_FOLDER:/app news-aggregator
+```
+
+if the path contains space " should be put around it
