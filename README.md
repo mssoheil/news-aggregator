@@ -14,7 +14,7 @@ The application supports filtering with keyword, published date and source
 
 The user can set preference for favorite category, source and author
 
-The changing are not live and won't call by just changing the input field
+The changing are not live and won't call by just changing the input field and the `Get Articles` should be clicked
 
 The reason for this is because the `New York Times` has a very strict rate limit implemented that supports only a few api calls per minute
 
