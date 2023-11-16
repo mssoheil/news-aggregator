@@ -3,11 +3,9 @@
   align-items: center;
   justify-content: center;
 
-  @media screen and (min-width: 640px) {
-    display: none;
-  }
 
   &__menu-button {
+    cursor: pointer;
     width: 30px;
     height: 30px;
     background: none;

@@ -1,8 +1,9 @@
 import React, { useContext } from "react";
+import cn from "classnames";
 // Components
 import { Drawer } from "@components/drawer";
-import { PreferenceContent } from "../preference-content";
 import { GearIcon } from "@components/icons";
+import { PreferenceContent } from "../preference-content";
 // Assets
 import { Store } from "@components/main-page";
 // Styles
@@ -23,11 +24,10 @@ export const Preference = () => {
 	return (
 		<div className={styles["preference-content"]}>
 			<button
-				className={`${styles["preference-content__menu-button"]} ${
-					isPreferenceMenuOpened
-						? styles["preference-content__menu-button--disabled"]
-						: ""
-				}`}
+				className={cn(styles["preference-content__menu-button"], {
+					[styles["preference-content__menu-button--disabled"]]:
+						isPreferenceMenuOpened,
+				})}
 				onClick={handleOpenMenu}
 			>
 				<GearIcon />

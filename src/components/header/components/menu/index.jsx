@@ -1,7 +1,7 @@
 import React from "react";
 // Components
-import { HamburgerButton } from "../hamburger-button";
 import { Preference } from "../preference";
+import { HamburgerButton } from "../hamburger-button";
 // Styles
 import styles from "./index.module.scss";
 

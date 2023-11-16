@@ -1,4 +1,9 @@
 .main-page {
+
+	&--none-interactive {
+		pointer-events: none;
+	}
+	
 	&__error {
 		color: #f6465d;
 		font-size: 16px;

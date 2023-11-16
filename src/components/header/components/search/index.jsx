@@ -1,8 +1,10 @@
 import React, { useContext, useMemo, useState } from "react";
+import cn from "classnames";
 // Components
 import { SearchIcon } from "@components/icons";
 // Styles
 import styles from "./index.module.scss";
+// Store
 import { Store } from "@components/main-page";
 
 export const Search = () => {
@@ -29,17 +31,17 @@ export const Search = () => {
 		<div className={styles.search}>
 			<div className={styles["search__wrapper"]}>
 				<button
-					className={`${styles["search__button"]} ${
-						!buttonIsDisabled ? styles["search__button--active"] : ""
-					}`}
+					className={cn(styles["search__button"], {
+						[styles["search__button--active"]]: !buttonIsDisabled,
+					})}
 					onClick={handleSubmit}
 				>
 					<SearchIcon color={!buttonIsDisabled ? "#fff" : "#ccc"} />
 				</button>
 				<input
-					className={styles["wrapper__input"]}
 					value={value}
 					onChange={handleChange}
+					className={styles["wrapper__input"]}
 				/>
 			</div>
 		</div>

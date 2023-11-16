@@ -5,12 +5,12 @@ import { Input } from "@components/input";
 import styles from "./index.module.scss";
 
 export const FilterInputs = ({
-  fromDate,
-  setFromDate,
   toDate,
-  setToDate,
   source,
+  fromDate,
+  setToDate,
   setSource,
+  setFromDate,
 }) => {
   function handleFromDateChange(event) {
     setFromDate(event.target.value);

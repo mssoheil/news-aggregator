@@ -11,10 +11,10 @@ import menuIcon from "@root/assets/images/menu-icon.svg";
 
 export const HamburgerButton = () => {
 	const {
-		setIsCategoryMenuOpened,
 		onCategorySelect,
-		category: selectedCategory,
 		isCategoryMenuOpened,
+		setIsCategoryMenuOpened,
+		category: selectedCategory,
 	} = useContext(Store);
 
 	function handleOpenMenu() {

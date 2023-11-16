@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import cn from "classnames";
 // Components
 import { Menu } from "./components/menu";
 import { Search } from "./components/search";
@@ -6,6 +7,7 @@ import { FilterIcon } from "../icons";
 import { FilterSection } from "./components/filter-section";
 // Styles
 import styles from "./index.module.scss";
+// Store
 import { Store } from "../main-page";
 
 export const Header = () => {
@@ -23,19 +25,17 @@ export const Header = () => {
 				<Search />
 				<button
 					onClick={handleToggleVisible}
-					className={`${styles["filter-section__filter-icon"]} ${
-						isFilterVisible
-							? styles["filter-section__filter-icon--visible"]
-							: ""
-					}`}
+					className={cn(styles["filter-section__filter-icon"], {
+						[styles["filter-section__filter-icon--visible"]]: isFilterVisible,
+					})}
 				>
 					<FilterIcon />
 				</button>
 			</div>
 			<div
-				className={`${styles["header__filter-content"]} ${
-					isFilterVisible ? styles["header__filter-content--visible"] : ""
-				}`}
+				className={cn(styles["header__filter-content"], {
+					[styles["header__filter-content--visible"]]: isFilterVisible,
+				})}
 			>
 				<FilterSection />
 			</div>

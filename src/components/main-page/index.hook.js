@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 // Utilities
 import { createQuery } from "@root/utils/query.util";
 
@@ -13,17 +13,17 @@ const guardianBaseUrl = "https://content.guardianapis.com/search";
 
 export function useFeed() {
 	const [page, setPage] = useState(1);
-	const [articles, setArticles] = useState([]);
-	const [loading, setLoading] = useState(false);
-	const [newsapiHasError, setNewsapiHasError] = useState(true);
-	const [nytimesHasError, setNytimesHasError] = useState(true);
-	const [guardianHasError, setGuardianHasError] = useState(true);
-	const [fromDate, setFromDate] = useState("");
 	const [toDate, setToDate] = useState("");
 	const [source, setSource] = useState("");
 	const [author, setAuthor] = useState("");
 	const [keyword, setKeyword] = useState("");
+	const [articles, setArticles] = useState([]);
+	const [loading, setLoading] = useState(false);
+	const [fromDate, setFromDate] = useState("");
 	const [category, setCategory] = useState(null);
+	const [newsapiHasError, setNewsapiHasError] = useState(true);
+	const [nytimesHasError, setNytimesHasError] = useState(true);
+	const [guardianHasError, setGuardianHasError] = useState(true);
 
 	useEffect(() => {
 		const preferredCategory = localStorage.getItem("preferredCategory");
@@ -77,15 +77,15 @@ export function useFeed() {
 		try {
 			setNewsapiHasError(false);
 			const newsapiQuery = createQuery({
+				page,
+				source,
+				author,
+				category,
+				to: toDate,
+				pageSize: 10,
+				from: fromDate,
 				apiKey: newsApiApiKey,
 				q: keyword || "keyword",
-				pageSize: 10,
-				page,
-				from: fromDate,
-				to: toDate,
-				source,
-				category,
-				author,
 			});
 			const newsapiResponse = await fetch(`${newsApiBaseUrl}?${newsapiQuery}`);
 			const newsapiArticles = await newsapiResponse.json();
@@ -107,13 +107,13 @@ export function useFeed() {
 					: sourceQuery || newsDeskQuery;
 
 			const nytimesQuery = createQuery({
-				"api-key": nytimesApiKey,
-				q: keyword,
 				page,
-				begin_date: fromDate,
-				end_date: toDate,
+				q: keyword,
 				fq: filterQuery,
 				byline: author,
+				end_date: toDate,
+				begin_date: fromDate,
+				"api-key": nytimesApiKey,
 			});
 			const nytimesResponse = await fetch(`${nytimesBaseUrl}?${nytimesQuery}`);
 			const nytimesArticles = await nytimesResponse.json();
@@ -128,14 +128,14 @@ export function useFeed() {
 		try {
 			setGuardianHasError(false);
 			const guardianQuery = createQuery({
-				"api-key": guardianApiKey,
 				page,
-				"page-size": 10,
-				"from-date": fromDate,
-				"to-date": toDate,
-				q: keyword,
-				section: category,
 				author,
+				q: keyword,
+				"page-size": 10,
+				section: category,
+				"to-date": toDate,
+				"from-date": fromDate,
+				"api-key": guardianApiKey,
 				"show-references": "author",
 			});
 			const guardianResponse = await fetch(
@@ -175,34 +175,34 @@ export function useFeed() {
 	function aggregate(newsApi, nytimes, guardian) {
 		const newsApiAggregated = newsApi.map(
 			({ author, title, description, publishedAt, source, url }) => ({
-				newsCompany: "newsApi",
-				author,
+				url,
 				title,
+				author,
 				description,
 				publishedAt,
 				source: source.name,
-				url,
+				newsCompany: "newsApi",
 			})
 		);
 
 		const nytimesAggregated = nytimes.map(
 			({ byline, headline, lead_paragraph, pub_date, source, web_url }) => ({
-				newsCompany: "nytimes",
-				author: byline.original?.replace(/By /i, ""),
-				title: headline.main,
-				description: lead_paragraph,
-				publishedAt: pub_date,
 				source,
 				url: web_url,
+				title: headline.main,
+				publishedAt: pub_date,
+				newsCompany: "nytimes",
+				description: lead_paragraph,
+				author: byline.original?.replace(/By /i, ""),
 			})
 		);
 
 		const guardianAggregated = guardian.map(
 			({ webPublicationDate, webTitle, webUrl }) => ({
-				newsCompany: "guardian",
-				title: webTitle,
-				publishedAt: webPublicationDate,
 				url: webUrl,
+				title: webTitle,
+				newsCompany: "guardian",
+				publishedAt: webPublicationDate,
 			})
 		);
 
@@ -230,9 +230,9 @@ export function useFeed() {
 	}
 
 	function handleSubmit(fromDate, toDate, source) {
-		handleFromDateChange(fromDate);
 		handleToDateChange(toDate);
 		handleSourceChange(source);
+		handleFromDateChange(fromDate);
 	}
 
 	function onCategorySelect(value) {
@@ -240,22 +240,22 @@ export function useFeed() {
 	}
 
 	return {
-		articles,
-		hasError,
-		loading,
-		hasPreviousPage: page > 1 && !loading && !hasError,
-		hasNextPage: !loading && !hasError && articles.length,
-		fromDate,
 		toDate,
 		source,
+		loading,
 		keyword,
-		goNextPage,
-		goPreviousPage,
-		handleKeywordChange,
-		handleSubmit,
-		onCategorySelect,
+		articles,
+		hasError,
+		fromDate,
 		category,
 		setAuthor,
 		setSource,
+		goNextPage,
+		handleSubmit,
+		goPreviousPage,
+		onCategorySelect,
+		handleKeywordChange,
+		hasPreviousPage: page > 1 && !loading && !hasError,
+		hasNextPage: !loading && !hasError && articles.length,
 	};
 }

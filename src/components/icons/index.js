@@ -1,5 +1,5 @@
-export { ChevronLeft } from "./chevron-left";
-export { ChevronRight } from "./chevron-right";
+export { GearIcon } from "./gear";
 export { FilterIcon } from "./filter";
 export { SearchIcon } from "./search";
-export { GearIcon } from "./gear";
+export { ChevronLeft } from "./chevron-left";
+export { ChevronRight } from "./chevron-right";

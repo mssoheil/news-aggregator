@@ -1,4 +1,5 @@
 import React, { createContext, useState } from "react";
+import cn from "classnames";
 // Components
 import { Header } from "../header";
 import { Articles } from "./components/articles";
@@ -22,6 +23,11 @@ export const MainPage = () => {
 	function handleRefreshPage() {
 		window.location.reload(false);
 	}
+	console.log("Debug ~ MainPage ~ isFilterVisible:", isFilterVisible);
+	console.log(
+		"Debug ~ MainPage ~ isPreferenceMenuOpened:",
+		isPreferenceMenuOpened
+	);
 
 	return (
 		<Store.Provider
@@ -30,15 +36,16 @@ export const MainPage = () => {
 				isFilterVisible,
 				setIsFilterVisible,
 				isCategoryMenuOpened,
-				setIsCategoryMenuOpened,
 				isPreferenceMenuOpened,
+				setIsCategoryMenuOpened,
 				setIsPreferenceMenuOpened,
 			}}
 		>
 			<div
-				className={`${styles["main-page"]} ${
-					isPreferenceMenuOpened ? styles["main-page--none-interactive"] : ""
-				}`}
+				className={cn(styles["main-page"], {
+					[styles["main-page--none-interactive"]]:
+						isPreferenceMenuOpened || isCategoryMenuOpened,
+				})}
 			>
 				<Header />
 

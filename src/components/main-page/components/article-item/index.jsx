@@ -24,9 +24,9 @@ export const ArticleItem = ({ article }) => {
 			</h4>
 			<h3 className={styles["article-item__title"]}>{article.title}</h3>
 			<a
-				href={article.url}
 				target="_blank"
 				rel="noreferrer"
+				href={article.url}
 				className={styles["article-item__link"]}
 			>
 				Read the article

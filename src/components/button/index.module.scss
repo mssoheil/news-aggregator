@@ -1,17 +1,15 @@
 .button {
 		width: 184px;
 		border: none;
-		// margin-top: 20px;
 		border-radius: 10px;
 		background: #9b92e9;
 		color: #fff;
 		height: 40px;
 		cursor: pointer;
+    
     &:disabled {
       background: #ccc;
     }
-    // width: 100%;
-    // color: #fff;
 
     &__spinner {
       width: 20px;

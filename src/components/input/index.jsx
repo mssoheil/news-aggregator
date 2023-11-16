@@ -7,10 +7,10 @@ export const Input = ({ children, value, type, onChange }) => {
 		<div className={styles.wrapper}>
 			<div className={styles["wrapper__title"]}>{children}</div>
 			<input
-				className={styles["wrapper__input"]}
 				type={type}
 				value={value}
 				onChange={onChange}
+				className={styles["wrapper__input"]}
 			/>
 		</div>
 	);

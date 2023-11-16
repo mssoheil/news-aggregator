@@ -1,8 +1,10 @@
 import React, { useContext } from "react";
+import cn from "classnames";
 // Components
 import { ArticleItem } from "../article-item";
 // Styles
 import styles from "./index.module.scss";
+// Store
 import { Store } from "../..";
 
 export const Articles = () => {
@@ -10,9 +12,9 @@ export const Articles = () => {
 
 	return (
 		<div
-			className={`${styles.articles} ${
-				isFilterVisible ? styles["articles--filter-visible"] : ""
-			}`}
+			className={cn(styles.articles, {
+				[styles["articles--filter-visible"]]: isFilterVisible,
+			})}
 		>
 			{articles.map((article) => (
 				<ArticleItem

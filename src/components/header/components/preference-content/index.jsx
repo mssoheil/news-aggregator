@@ -1,76 +1,26 @@
-import React, { useContext, useEffect, useState } from "react";
+import React from "react";
+import cn from "classnames";
 // Components
 import { Input } from "@components/input";
 import { Button } from "@components/button";
 import { GearIcon } from "@components/icons";
+// Hooks
+import { usePreference } from "./index.hook";
 // Styles
 import styles from "./index.module.scss";
 // Constants
 import { categories } from "@root/constants/categories.js";
-// Store
-import { Store } from "@components/main-page";
 
 export const PreferenceContent = ({ onClose }) => {
 	const {
-		onCategorySelect: setSelectedCategory,
-		setSource: setSelectedSource,
-		setAuthor: setSelectedAuthor,
-	} = useContext(Store);
-
-	const [category, setCategory] = useState("");
-	const [source, setSource] = useState("");
-	const [author, setAuthor] = useState("");
-
-	useEffect(() => {
-		const preferredCategory = localStorage.getItem("preferredCategory");
-		const preferredSource = localStorage.getItem("preferredSource");
-		const preferredAuthor = localStorage.getItem("preferredAuthor");
-
-		if (preferredCategory) {
-			setCategory(preferredCategory);
-		}
-
-		if (preferredSource) {
-			setSource(preferredSource);
-		}
-
-		if (preferredAuthor) {
-			setAuthor(preferredAuthor);
-		}
-	}, []);
-
-	function handleCategorySelect(key) {
-		const currentPreferredCategory = localStorage.getItem("preferredCategory");
-
-		if (currentPreferredCategory === key) {
-			localStorage.removeItem("preferredCategory");
-			setCategory("");
-		} else {
-			setCategory(key);
-			localStorage.setItem("preferredCategory", key);
-		}
-	}
-
-	function handleSourceChange(event) {
-		const { value } = event.target;
-
-		setSource(value);
-		localStorage.setItem("preferredSource", value);
-	}
-
-	function handleAuthorChange(event) {
-		const { value } = event.target;
-
-		setAuthor(value);
-		localStorage.setItem("preferredAuthor", value);
-	}
-
-	function handleRefresh() {
-		setSelectedCategory(category);
-		setSelectedSource(source);
-		setSelectedAuthor(author);
-		onClose();
-	}
+		author,
+		source,
+		category,
+		handleRefresh,
+		handleAuthorChange,
+		handleSourceChange,
+		handleCategorySelect,
+	} = usePreference(onClose);
 
 	return (
 		<div className={styles["preference-content"]}>
@@ -83,10 +33,10 @@ export const PreferenceContent = ({ onClose }) => {
 			<div className={styles["preference-content__categories"]}>
 				{categories.map(({ key, label }) => (
 					<h4
-						className={`${styles["preference-content__item"]} ${
-							key === category ? styles["preference-content__item--active"] : ""
-						}`}
 						key={key}
+						className={cn(styles["preference-content__item"], {
+							[styles["preference-content__item--active"]]: key === category,
+						})}
 						onClick={() => handleCategorySelect(key)}
 					>
 						{label}

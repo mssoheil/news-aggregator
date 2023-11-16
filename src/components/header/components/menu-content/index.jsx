@@ -1,4 +1,5 @@
 import React from "react";
+import cn from "classnames";
 // Styles
 import styles from "./index.module.scss";
 // Constants
@@ -20,9 +21,9 @@ export const MenuContent = ({
 
 			{categories.map(({ key, label }) => (
 				<h4
-					className={`${styles["menu-content__item"]} ${
-						key === selectedCategory ? styles["menu-content__item--active"] : ""
-					}`}
+					className={cn(styles["menu-content__item"], {
+						[styles["menu-content__item--active"]]: key === selectedCategory,
+					})}
 					key={key}
 					onClick={() => handleCategorySelect(key)}
 				>

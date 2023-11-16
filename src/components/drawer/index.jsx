@@ -1,4 +1,5 @@
 import React, { useRef } from "react";
+import cn from "classnames";
 // Styles
 import styles from "./index.module.scss";
 // Assets
@@ -13,19 +14,19 @@ export const Drawer = ({ onClose, isOpen, children }) => {
 
 	return (
 		<div
-			className={`${styles["drawer"]} ${
-				isOpen ? styles["drawer__opened"] : ""
-			}`}
+			className={cn(styles.drawer, {
+				[styles["drawer__opened"]]: isOpen,
+			})}
 			ref={ref}
 		>
 			<div className={styles["drawer__content-wrapper"]}>
 				<img
+					width={32}
+					height={32}
 					alt="close"
 					src={closeIcon}
 					onClick={onClose}
 					className={styles["content-wrapper__close-button"]}
-					width={32}
-					height={32}
 				/>
 				{children}
 			</div>
