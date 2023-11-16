@@ -6,29 +6,14 @@ import { Pagination } from "./components/pagination";
 // Hooks
 import { useFeed } from "./index.hook";
 // Assets
-import spinnerIcon from "../../assets/images/tail-spin.svg";
+import spinnerIcon from "@root/assets/images/tail-spin.svg";
 // Styles
 import styles from "./index.module.scss";
 
 export const Store = createContext();
 
 export const MainPage = () => {
-	const {
-		articles,
-		hasError,
-		loading,
-		hasNextPage,
-		hasPreviousPage,
-		keyword,
-		handleSubmit,
-		handleKeywordChange,
-		goNextPage,
-		goPreviousPage,
-		onCategorySelect,
-		category,
-		setAuthor,
-		setSource,
-	} = useFeed();
+	const feed = useFeed();
 
 	const [isFilterVisible, setIsFilterVisible] = useState(false);
 	const [isCategoryMenuOpened, setIsCategoryMenuOpened] = useState(false);
@@ -41,26 +26,13 @@ export const MainPage = () => {
 	return (
 		<Store.Provider
 			value={{
-				articles,
-				hasError,
-				loading,
-				hasNextPage,
-				hasPreviousPage,
-				keyword,
-				handleSubmit,
-				handleKeywordChange,
-				goNextPage,
-				goPreviousPage,
-				onCategorySelect,
+				...feed,
 				isFilterVisible,
 				setIsFilterVisible,
 				isCategoryMenuOpened,
 				setIsCategoryMenuOpened,
-				category,
 				isPreferenceMenuOpened,
 				setIsPreferenceMenuOpened,
-				setAuthor,
-				setSource,
 			}}
 		>
 			<div
@@ -70,13 +42,13 @@ export const MainPage = () => {
 			>
 				<Header />
 
-				{loading ? (
+				{feed.loading ? (
 					<img
 						alt="spinner"
 						src={spinnerIcon}
 						className={styles["main-page__spinner"]}
 					/>
-				) : hasError ? (
+				) : feed.hasError ? (
 					<h3 className={styles["main-page__error"]}>
 						Something happened, <span onClick={handleRefreshPage}>Refresh</span>
 					</h3>

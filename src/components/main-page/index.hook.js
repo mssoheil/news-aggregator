@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 // Utilities
-import { createQuery } from "../../utils/query.util";
+import { createQuery } from "@root/utils/query.util";
 
 const newsApiApiKey = process.env.REACT_APP_NEWSAPI_API_KEY;
 const nytimesApiKey = process.env.REACT_APP_NYTIMES_API_KEY;

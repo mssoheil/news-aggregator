@@ -1,9 +1,9 @@
 import React, { useContext, useMemo, useState } from "react";
 // Components
-import { SearchIcon } from "../../../icons";
+import { SearchIcon } from "@components/icons";
 // Styles
 import styles from "./index.module.scss";
-import { Store } from "../../../main-page";
+import { Store } from "@components/main-page";
 
 export const Search = () => {
 	const { handleKeywordChange, keyword, loading } = useContext(Store);

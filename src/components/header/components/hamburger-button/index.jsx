@@ -1,13 +1,13 @@
 import { useContext } from "react";
 // Components
 import { MenuContent } from "../menu-content";
-import { Drawer } from "../../../drawer";
+import { Drawer } from "@components/drawer";
 // Styles
 import styles from "./index.module.scss";
 // Store
-import { Store } from "../../../main-page";
+import { Store } from "@components/main-page";
 // Assets
-import menuIcon from "../../../../assets/images/menu-icon.svg";
+import menuIcon from "@root/assets/images/menu-icon.svg";
 
 export const HamburgerButton = () => {
 	const {

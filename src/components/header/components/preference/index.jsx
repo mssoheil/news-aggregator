@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
 // Components
-import { Drawer } from "../../../drawer";
+import { Drawer } from "@components/drawer";
 import { PreferenceContent } from "../preference-content";
-import { GearIcon } from "../../../icons";
+import { GearIcon } from "@components/icons";
 // Assets
-import { Store } from "../../../main-page";
+import { Store } from "@components/main-page";
 // Styles
 import styles from "./index.module.scss";
 

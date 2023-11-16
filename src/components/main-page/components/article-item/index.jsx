@@ -1,10 +1,10 @@
 import React, { Fragment } from "react";
 // Utilities
-import { getFormattedDate } from "../../../../utils/data.util";
+import { getFormattedDate } from "@root/utils/data.util";
 // Styles
 import styles from "./index.module.scss";
 // Assets
-import linkIcon from "../../../../assets/images/link-icon.svg";
+import linkIcon from "@root/assets/images/link-icon.svg";
 
 export const ArticleItem = ({ article }) => {
 	return (

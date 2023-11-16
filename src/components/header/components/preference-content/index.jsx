@@ -1,14 +1,14 @@
 import React, { useContext, useEffect, useState } from "react";
 // Components
-import { Input } from "../../../input/index.jsx";
-import { Button } from "../../../button/index.jsx";
-import { GearIcon } from "../../../icons/index.js";
+import { Input } from "@components/input";
+import { Button } from "@components/button";
+import { GearIcon } from "@components/icons";
 // Styles
 import styles from "./index.module.scss";
 // Constants
-import { categories } from "../../../../constants/categories.ts";
+import { categories } from "@root/constants/categories.js";
 // Store
-import { Store } from "../../../main-page/index.jsx";
+import { Store } from "@components/main-page";
 
 export const PreferenceContent = ({ onClose }) => {
 	const {

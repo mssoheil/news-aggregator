@@ -2,7 +2,7 @@ import React, { useRef } from "react";
 // Styles
 import styles from "./index.module.scss";
 // Assets
-import closeIcon from "../../assets/images/close-icon.svg";
+import closeIcon from "@root/assets/images/close-icon.svg";
 // Hooks
 import useOnClickOutside from "./index.hook";
 

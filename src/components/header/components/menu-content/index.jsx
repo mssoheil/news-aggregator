@@ -2,7 +2,7 @@ import React from "react";
 // Styles
 import styles from "./index.module.scss";
 // Constants
-import { categories } from "../../../../constants/categories.ts";
+import { categories } from "@root/constants/categories.js";
 
 export const MenuContent = ({
 	onClose,

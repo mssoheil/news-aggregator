@@ -1,6 +1,6 @@
 import React from "react";
 // Components
-import { Input } from "../../../input";
+import { Input } from "@components/input";
 // Styles
 import styles from "./index.module.scss";
 

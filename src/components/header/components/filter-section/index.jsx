@@ -1,13 +1,11 @@
 import React, { useContext, useMemo, useState } from "react";
 // Components
 import { FilterInputs } from "../filter-inputs";
+import { Button } from "@components/button";
 // Styles
 import styles from "./index.module.scss";
-// Assets
-import spinnerIcon from "../../../../assets/images/tail-spin.svg";
 // Store
-import { Store } from "../../../main-page";
-import { Button } from "../../../button";
+import { Store } from "@components/main-page";
 
 export const FilterSection = () => {
 	const { loading, handleSubmit: onSubmit } = useContext(Store);

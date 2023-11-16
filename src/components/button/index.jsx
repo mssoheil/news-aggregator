@@ -2,7 +2,7 @@ import React from "react";
 // Styles
 import styles from "./index.module.scss";
 // Assets
-import spinnerIcon from "../../assets/images/tail-spin.svg";
+import spinnerIcon from "@root/assets/images/tail-spin.svg";
 
 export const Button = ({ onClick, disabled, loading, children, className }) => {
 	return (

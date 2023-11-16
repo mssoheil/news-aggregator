@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 // Styles
 import styles from "./index.module.scss";
 // Components
-import { ChevronLeft, ChevronRight } from "../../../icons";
+import { ChevronLeft, ChevronRight } from "@components/icons";
 // Store
 import { Store } from "../..";
 
