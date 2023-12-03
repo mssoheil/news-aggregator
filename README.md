@@ -4,8 +4,6 @@
 
 ### Used news apis: `NewsApi, New York Times, Guardian`
 
-The default api keys for each of the news apis have been put inside the .env file as well as url
-
 because the news api will give CORS error on localhost, a proxy middleware has been used for it
 
 For filtering and pagination pagination and filter query parameters have been used
